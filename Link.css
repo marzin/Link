@@ -1,0 +1,16 @@
+td{
+	user-select: none;
+}
+
+td+td{
+	display: none;
+}
+
+td:active{
+	background-color: red;	
+}
+
+td:active+td{
+	display: table-cell;
+	background-color: red;
+}

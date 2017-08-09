@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Link</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="Link.css"> 
+
+	<script type="text/javascript">
+		players=[];
+		function addPlayer(){
+			document.getElementById('alertPlayer').style.display = "none";
+			var name = document.querySelector('[name="newPlayer"]').value.trim();
+			if(name.length < 1){return false;}
+			if(players.indexOf(name) > -1){
+				document.getElementById('alertPlayer').style.display = "inline";
+			} else {
+				players.push(name);	
+				document.querySelector('[name="newPlayer"]').value = "";
+				drawTable();
+
+				if(players.length > 3 ){
+					document.getElementById('play').style.display = "block";
+				}
+			}
+			return false;
+		}
+
+		function drawTable(){
+			var table = document.getElementById('list');
+			table.innerHTML = "<tr><th>Player</th><th>Password</th></tr>";
+			for (var i = players.length - 1; i >= 0; i--) {
+				table.innerHTML += "<tr><td>"+players[i]+"</td><td id='player"+i+"'></td></tr>";
+			}
+		}
+
+		function play(){
+			var id;			
+			var p=[];
+			for (var i = players.length - 1; i >= 0; i--) {
+				p.push(i);
+				document.getElementById('player'+i).innerHTML = "";
+			}
+			id = p.splice(Math.floor(Math.random()*p.length),1);
+			document.getElementById('player'+id).innerHTML = "camembert";
+			id = p.splice(Math.floor(Math.random()*p.length),1);
+			document.getElementById('player'+id).innerHTML = "camembert";
+		}
+	</script>
+</head>
+<body>
+	<table id="list" class="table">
+	</table>
+	<form onsubmit="return addPlayer()" method="post">
+		New player's name : <input type="text" name="newPlayer">
+		<input type="submit" name="Submit">
+		<span style="display: none;" id="alertPlayer"> Player already added!</span>
+	</form>
+	<div id="play" style="display: none;">
+		<button onclick="play()">Play</button>
+	</div>
+</body>
+</html>
