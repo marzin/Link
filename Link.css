@@ -1,16 +1,31 @@
-td{
+.player{
 	user-select: none;
+	border-top: 1px solid black;
 }
 
-td+td{
-	display: none;
-}
-
-td:active{
+.player:active div{
 	background-color: red;	
 }
 
-td:active+td{
-	display: table-cell;
-	background-color: red;
+.player:active .password{
+	display: inline-block;
+}
+
+.el{
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	height: 50px;
+	line-height: 50px;
+	width: 20em;
+}
+
+.password{
+	display: none;
+}
+
+#list{
+	border: 2px solid black;
+	border-radius: 5px;
+	display: inline-block;
 }

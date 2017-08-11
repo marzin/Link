@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Link</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="Link.css"> 
 	<script type="text/javascript" src="word.js"></script>  
 
@@ -19,6 +18,10 @@
 				document.querySelector('[name="newPlayer"]').value = "";
 				drawTable();
 
+				if(players.length > 0 ){
+					document.getElementById('list').style.display = "inline-block";
+					document.getElementById('reset').style.display = "block";
+				}
 				if(players.length > 3 ){
 					document.getElementById('play').style.display = "block";
 				}
@@ -28,9 +31,9 @@
 
 		function drawTable(){
 			var table = document.getElementById('list');
-			table.innerHTML = "<tr><th>Player</th><th>Password</th></tr>";
+			table.innerHTML = "<div class='el'>Player</div><div class='el'>Password</div>";
 			for (var i = players.length - 1; i >= 0; i--) {
-				table.innerHTML += "<tr><td>"+players[i]+"</td><td id='player"+i+"'>Counter-Spy</td></tr>";
+				table.innerHTML += "<div class='player'><div class='el'>"+players[i]+"</div><div class='el password' id='player"+i+"'></div></div>";
 			}
 		}
 
@@ -40,18 +43,24 @@
 			var p=[];
 			for (var i = players.length - 1; i >= 0; i--) {
 				p.push(i);
-				document.getElementById('player'+i).innerHTML = "";
+				document.getElementById('player'+i).innerHTML = "Counter-Spy";
 			}
 			id = p.splice(Math.floor(Math.random()*p.length),1);
 			document.getElementById('player'+id).innerHTML = secretWord;
 			id = p.splice(Math.floor(Math.random()*p.length),1);
 			document.getElementById('player'+id).innerHTML = secretWord;
 		}
+
+		function reset(){
+			players=[];
+			document.getElementById('list').style.display = "none";
+			document.getElementById('play').style.display = "none";
+			document.getElementById('reset').style.display = "none";
+		}
 	</script>
 </head>
 <body>
-	<table id="list" class="table">
-	</table>
+	<div id="list" style="display: none;"></div>
 	<form onsubmit="return addPlayer()" method="post">
 		New player's name : <input type="text" name="newPlayer">
 		<input type="submit" name="Submit">
@@ -59,6 +68,9 @@
 	</form>
 	<div id="play" style="display: none;">
 		<button onclick="play()">Play</button>
+	</div>
+	<div id="reset" style="display: none;">
+		<button onclick="reset()">Reset</button>
 	</div>
 </body>
 </html>
