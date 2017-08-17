@@ -29,3 +29,7 @@
 	border-radius: 5px;
 	display: inline-block;
 }
+
+button{
+	width: 60px;
+}
